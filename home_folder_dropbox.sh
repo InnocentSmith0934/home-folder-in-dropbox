@@ -42,4 +42,16 @@ echo "Create folder: "$NEWHOME""
 # Make the new home folder and the folders beneath it in the hierarchy
 mkdir -p "$NEWHOME"
 
+echo "Copy home folder to "$NEWHOME""
+ditto ~/Documents "$NEWHOME"/Documents
+ditto ~/Downloads "$NEWHOME"/Downloads
+ditto ~/Desktop "$NEWHOME"/Desktop
+ditto ~/Library "$NEWHOME"/Library
+ditto ~/Movies "$NEWHOME"/Movies
+ditto ~/Music "$NEWHOME"/Music
+ditto ~/Pictures "$NEWHOME"/Pictures
+ditto ~/Public "$NEWHOME"/Public
+ditto ~/.dropbox "$NEWHOME"/.dropbox
+ditto ~/.dropbox-master "$NEWHOME"/.dropbox-master
+
 exit 0
