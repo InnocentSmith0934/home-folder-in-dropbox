@@ -3,6 +3,9 @@ home-folder-in-dropbox
 
 TODO:  
 * Update documentation  
+* Add more status updates between ditto commands
+* move dropbox folders up list, move Preferences to the bottom.  
+    (Largest, most troublesome folder last) 
 
 Script for preparing to put OSX home folder inside Dropbox folder
 
