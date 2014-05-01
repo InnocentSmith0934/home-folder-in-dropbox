@@ -24,23 +24,35 @@
 # It checks for the two-argument version first to optimize for my more common use-case
 if [ $# == 3 ]
 then
-NEWHOME=~/Dropbox\ \("$3"\)/"$1"/"$2"
+NEWHOME=/Users/"$2"/Dropbox\ \("$3"\)/"$1"/"$2"
+elif [ $# == 2 ]
+then
+NEWHOME=/Users/"$2"/Dropbox/"$1"/"$2"
 elif [ $# == 1 ]
 then
-NEWHOME=~/Dropbox/"$1"/"$2"
-elif [ $# == 0 ]
-then
-NEWHOME=~/Dropbox/"$1"
+NEWHOME=/Users/"$1"/Dropbox/"$1"
 else
 echo "ERROR: Incorrect Arguments"
 exit 1
 fi
 
-# For testing purposes, echo the Home path that the if statements created
-echo "Create folder: "$NEWHOME""
 
-# Make the new home folder and the folders beneath it in the hierarchy
+# If not exist Make the new home folder and the folders beneath it in the hierarchy
+if [ -d "$NEWHOME" ]
+then
+echo "Folder already exists: "$NEWHOME""
+else
 mkdir -p "$NEWHOME"
+echo "Create folder: "$NEWHOME""
+# Make sure user owns the folder!
+# If >3 args or 0 args, script has already terminated. Only cases are 1 arg or 2/3.
+if [ $# == 1 ]
+then
+chown "$1" "$NEWHOME"
+else
+chown "$2" "$NEWHOME"
+fi
+fi
 
 echo "Copy home folder to "$NEWHOME""
 ditto ~/Documents "$NEWHOME"/Documents
