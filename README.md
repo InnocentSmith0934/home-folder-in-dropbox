@@ -2,8 +2,6 @@ home-folder-in-dropbox
 ======================
 
 TODO:  
-* Fix permissions for NEWHOME  
-* Check if NEWHOME already exists  
 * Update documentation  
 
 Script for preparing to put OSX home folder inside Dropbox folder
