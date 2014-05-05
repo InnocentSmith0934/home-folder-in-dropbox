@@ -1,69 +1,79 @@
 #!/bin/bash
 #
-# Copies home folder files for current user into the Dropbox folder
+# Copies home folder files into the Dropbox folder
 #
 # New home folder is placed in a folder named after provided initials, which can serve as a share point.
 #
 # Assumes Dropbox is already linked, located in home folder
 #
 # Two options for arguments: 
-# 1st: [initials] [shortname]  [org name] 
-#     For Dropbox for Business. Creates new home folder as [currenthome]/Dropbox ([org name])/[initials]/[username]
+# 1st: [initials] [shortname] [org name] 
+#     For Dropbox for Business. Creates new home folder as /Users/[shortname]/Dropbox ([org name])/[initials]/[shortname]
 #     The DfB orgazition name should be given in quotes if it contains a space.
 # 2nd: [initials] [shortname]
-#     For non DfB accounts. Creates new home folder as [currenthome]/Dropbox/[initials]/[username]
+#     For non DfB accounts. Creates new home folder as /Users/[shortname]/Dropbox/[initials]/[shortname]
 # 3rd: [shortname]
-#     For non DfB accounts. Creates new home folder as [currenthome]/Dropbox/[username]
+#     For non DfB accounts. Creates new home folder as /Users/[shortname]/Dropbox/[shortname]
 #     Might as well make it available; it's almost too easy not to.
+
+# If you want to set Selective Sync (recommend you at least unsync .dropbox and .dropbox-master),
+# run script again to recopy the folders that Selective Sync removes
 #
 # Needs to be called with superuser privs, or else Libary won't copy correctly
 #
-# If you want to set Selective Sync (recommend you at least unsync .dropbox and .dropbox-master),
-# run script again to recopy the folders than Selective Sync removes
 
-# It checks for the two-argument version first to optimize for my more common use-case
+
+# Initial configuration variables
+# It checks for the three-argument version first to optimize for my more common use-case
 if [ $# == 3 ]
 then
-NEWHOME=/Users/"$2"/Dropbox\ \("$3"\)/"$1"/"$2"
+SNAME="$2"
+NEWHOME=/Users/"$SNAME"/Dropbox\ \("$3"\)/"$1"/"$SNAME"
 elif [ $# == 2 ]
 then
-NEWHOME=/Users/"$2"/Dropbox/"$1"/"$2"
+SNAME="$2"
+NEWHOME=/Users/"$SNAME"/Dropbox/"$1"/"$SNAME"
 elif [ $# == 1 ]
 then
-NEWHOME=/Users/"$1"/Dropbox/"$1"
+SNAME="$1"
+NEWHOME=/Users/"$SNAME"/Dropbox/"$SNAME"
 else
 echo "ERROR: Incorrect Arguments"
 exit 1
 fi
 
 
-# If not exist Make the new home folder and the folders beneath it in the hierarchy
+# Make the new home folder if it doesn't already exist
 if [ -d "$NEWHOME" ]
 then
 echo "Folder already exists: "$NEWHOME""
 else
 mkdir -p "$NEWHOME"
-echo "Create folder: "$NEWHOME""
-# Make sure user owns the folder!
-# If >3 args or 0 args, script has already terminated. Only cases are 1 arg or 2/3.
-if [ $# == 1 ]
-then
-chown "$1" "$NEWHOME"
-else
-chown "$2" "$NEWHOME"
-fi
+echo "Created folder: "$NEWHOME""
+chown "$SNAME" "$NEWHOME" # Running mkdir with sudo can cause the folder to not be owned by the user
 fi
 
+# Status update after each folder, to know if/on which folder the ditto command might be hanging up. 
 echo "Copy home folder to "$NEWHOME""
 ditto ~/Documents "$NEWHOME"/Documents
+echo "Copied: Documents"
 ditto ~/Downloads "$NEWHOME"/Downloads
+echo "Copied: Downloads"
 ditto ~/Desktop "$NEWHOME"/Desktop
-ditto ~/Library "$NEWHOME"/Library
+echo "Copied: Desktop"
 ditto ~/Movies "$NEWHOME"/Movies
+echo "Copied: Movies"
 ditto ~/Music "$NEWHOME"/Music
+echo "Copied: Music"
 ditto ~/Pictures "$NEWHOME"/Pictures
+echo "Copied: Pictures"
 ditto ~/Public "$NEWHOME"/Public
-ditto ~/.dropbox "$NEWHOME"/.dropbox
+echo "Copied: Public"
 ditto ~/.dropbox-master "$NEWHOME"/.dropbox-master
+echo "Copied: .dropbox-master"
+ditto ~/.dropbox "$NEWHOME"/.dropbox
+echo "Copied: .dropbox"
+ditto ~/Library "$NEWHOME"/Library
+echo "Copied: Library"
 
 exit 0
