@@ -12,8 +12,8 @@ Three options for arguments:
      For Dropbox for Business. Creates new home folder as /Users/[shortname]/Dropbox ([org name])/[initials]/[shortname]  
      The DfB orgazition name should be given in quotes if it contains a space.
 * 2nd: [initials] [shortname]  
-     For non DfB accounts. Creates new home folder as /Users/[shortname]/Dropbox/[initials]/[shortname]   
-*3rd: [shortname]
+     For non DfB accounts. Creates new home folder as /Users/[shortname]/Dropbox/[initials]/[shortname]  
+* 3rd: [shortname]
      For non DfB accounts. Creates new home folder as /Users/[shortname]/Dropbox/[shortname]  
 
 If you want to set Selective Sync (recommend you at least unsync .dropbox and .dropbox-master),
