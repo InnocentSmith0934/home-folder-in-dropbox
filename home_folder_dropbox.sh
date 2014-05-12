@@ -23,7 +23,6 @@
 
 
 # Initial configuration variables
-# It checks for the three-argument version first to optimize for my more common use-case
 if [ $# == 3 ]
 then
 SNAME="$2"
