@@ -25,30 +25,33 @@
 # Initial configuration variables
 if [ $# == 3 ]
 then
-SNAME="$2"
-NEWHOME=/Users/"$SNAME"/Dropbox\ \("$3"\)/"$1"/"$SNAME"
+  SNAME="$2"
+  NEWHOME=/Users/"$SNAME"/Dropbox\ \("$3"\)/"$1"/"$SNAME"
 elif [ $# == 2 ]
-then
-SNAME="$2"
-NEWHOME=/Users/"$SNAME"/Dropbox/"$1"/"$SNAME"
+  then
+  SNAME="$2"
+  NEWHOME=/Users/"$SNAME"/Dropbox/"$1"/"$SNAME"
 elif [ $# == 1 ]
-then
-SNAME="$1"
-NEWHOME=/Users/"$SNAME"/Dropbox/"$SNAME"
+  then
+  SNAME="$1"
+  NEWHOME=/Users/"$SNAME"/Dropbox/"$SNAME"
 else
-echo "ERROR: Incorrect Arguments"
-exit 1
+  echo "Invalid user set. Use one of three valid argument sets:"
+  echo "[Initials] [User Shortname] [Org Name]"
+  echo "[Initials] [User Shortname]"
+  echo "[User Shortname]"
+  exit 1
 fi
 
 
 # Make the new home folder if it doesn't already exist
 if [ -d "$NEWHOME" ]
-then
-echo "Folder already exists: "$NEWHOME""
+  then
+  echo "Folder already exists: "$NEWHOME""
 else
-mkdir -p "$NEWHOME"
-echo "Created folder: "$NEWHOME""
-chown "$SNAME" "$NEWHOME" # Running mkdir with sudo can cause the folder to not be owned by the user
+  mkdir -p "$NEWHOME"
+  echo "Created folder: "$NEWHOME""
+  chown -R "$SNAME" "$NEWHOME"/.. # Running mkdir with sudo can cause the folder to be owned by root.
 fi
 
 # Status update after each folder, to know if/on which folder the ditto command might be hanging up. 
