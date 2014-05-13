@@ -1,7 +1,7 @@
 home-folder-in-dropbox
 ======================
 
-This script copies the standard OSX home folder and its starndard subfolders into the Dropbox folder.
+This script copies the standard OSX home folder and its standard subfolders into the Dropbox folder.
 
 The new home folder is placed in a folder named after the provided initials. That parent folder can serve as a share point for archiving home folder contents in another Dropbox for Business account.
 
