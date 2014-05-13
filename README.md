@@ -16,4 +16,4 @@ There are three options for arguments:
 * 3rd: [shortname]
      For non DfB accounts. It creates a new home folder as /Users/[shortname]/Dropbox/[shortname]  
 
-The script needs to be called with superuser privs. Without elevated priviledges, ditto won't be able to copy the Libary foldervcorrectly or preserve resource forks.
+The script needs to be called with superuser privs. Without elevated priviledges, ditto won't be able to copy the Libary folder correctly or preserve resource forks.
