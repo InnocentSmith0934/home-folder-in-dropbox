@@ -1,5 +1,6 @@
 #!/bin/bash
-#
+set -e
+
 # Copies home folder files into the Dropbox folder
 #
 # New home folder is placed in a folder named after provided initials, which can serve as a share point.
@@ -77,10 +78,7 @@ echo "Copied: .dropbox"
 ditto ~/Library "$NEWHOME"/Library
 echo "Copied: Library"
 
-exit 0
 
-# Copyright (c) 2014 Kevin White
-#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
